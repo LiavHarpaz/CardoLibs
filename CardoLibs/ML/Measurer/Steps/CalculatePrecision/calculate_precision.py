@@ -68,12 +68,10 @@ class CalculatePrecision(IStep):
 
 	def process(self, cardo_context: CardoContextBase, cardo_dataframe: CardoDataFrame,
 				gt: CardoDataFrame) -> CardoDataFrame:
-		dataframe = cardo_dataframe.dataframe
-		ground_truth_dataframe = gt.dataframe
-		true_positive_count, all_positives_count = self.__get_intersections(dataframe, ground_truth_dataframe)
+		true_positive_count, all_positives_count = self.__get_intersections(cardo_dataframe, gt)
 		precision_value = self.__get_precision_value(true_positive_count, all_positives_count)
 		if self.precision_column:
-			cardo_dataframe.dataframe = dataframe.withColumn(self.precision_column, F.lit(precision_value))
+			cardo_dataframe = cardo_dataframe.withColumn(self.precision_column, F.lit(precision_value))
 		source_name = self.source_name if self.source_name else cardo_dataframe.table_name
 		cardo_context.logger.info(f"precision calculation for {source_name} -> "
 								  f"matches: {true_positive_count}, intersection: {all_positives_count}, "

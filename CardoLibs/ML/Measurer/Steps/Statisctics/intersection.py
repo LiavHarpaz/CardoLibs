@@ -23,5 +23,5 @@ class Intersection(IStep):
 		return dataframe
 
 	def __intersect(self, dataframe: CardoDataFrame, dataset: CardoDataFrame) -> int:
-		intersect_count = dataframe.dataframe.join(dataset.dataframe, on=self.ids).count()
+		intersect_count = dataframe.join(dataset, on=self.ids).count()
 		return intersect_count

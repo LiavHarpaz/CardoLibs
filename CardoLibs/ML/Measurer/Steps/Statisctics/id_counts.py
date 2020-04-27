@@ -18,7 +18,7 @@ class IdCounts(IStep):
 
 	@staticmethod
 	def __count_per_logic(cardo_context: CardoContextBase, cardo_dataframe: CardoDataFrame) -> None:
-		ids_count = cardo_dataframe.dataframe.count()
+		ids_count = cardo_dataframe.count()
 		cardo_context.logger.info('id_counts', extra={'table_name': cardo_dataframe.table_name,
 													  'statistic_type': 'id_counts',
 													  'statistic_value': ids_count})
@@ -26,7 +26,7 @@ class IdCounts(IStep):
 	@staticmethod
 	def __num_of_distinct_ids_per_logic(cardo_context: CardoContextBase, cardo_dataframe: CardoDataFrame,
 										id_name: str) -> None:
-		ids_distinct_count = cardo_dataframe.dataframe.select(id_name).distinct().count()
+		ids_distinct_count = cardo_dataframe.select(id_name).distinct().count()
 		cardo_context.logger.info('id_distinct_counts', extra={'table_name': cardo_dataframe.table_name,
 															   'statistic_type': id_name,
 															   'statistic_value': ids_distinct_count})

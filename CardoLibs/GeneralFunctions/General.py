@@ -18,7 +18,7 @@ def union_dataframes(*dataframes: Union[CardoDataFrame, List[CardoDataFrame], Tu
 	else:
 		if isinstance(dataframes[0]._inner, pyspark.sql.DataFrame) or isinstance(dataframes[0]._inner, pyspark.RDD):
 			unioned = functools.reduce(
-				lambda df1, df2: CardoDataFrame(df1.dataframe.union(df2.dataframe.select(df1.dataframe.columns))),
+				lambda df1, df2: CardoDataFrame(df1.union(df2.select(df1.columns))),
 				dataframes)
 			return CardoDataFrame(unioned)
 		if isinstance(dataframes[0]._inner, pd.DataFrame):

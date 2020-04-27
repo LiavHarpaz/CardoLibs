@@ -24,8 +24,6 @@ class MaximumLikelihood(IStep):
     def process(self, cardo_context, *dataframes):
         # type: (CardoContextBase,list) -> CardoDataFrame
         df = union_dataframes(dataframes)
-        df = df.dataframe
-
         df = self.get_log_of_grades(df)
         df = self.combine_sources(df)
         df = self.convert_grade_back_to_normal(df)
